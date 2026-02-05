@@ -1,6 +1,6 @@
 import readline from 'node:readline/promises'
 import { stdin, stdout } from 'node:process'
-import type z from 'zod'
+import { z } from 'zod'
 import ollama from 'ollama'
 
 const rl = readline.createInterface({ input: stdin, output: stdout })
@@ -41,7 +41,7 @@ declare module 'ollama' {
 
 export async function callLLM<TSchema extends z.ZodObject>(
   prompt: string,
-  schema: TSchema,
+  schema: TSchema
 ): Promise<z.infer<TSchema>> {
   console.debug('LLM>', prompt)
   const response = await ollama.generate({
@@ -78,4 +78,12 @@ const getTemperatureTool = {
       },
     },
   },
+}
+
+export function zodToFormat<T extends z.ZodType>(
+  schema: T
+): Omit<z.core.ZodStandardJSONSchemaPayload<T>, '$schema'> {
+  const jsonSchema = z.toJSONSchema(schema)
+  delete jsonSchema['$schema']
+  return jsonSchema
 }

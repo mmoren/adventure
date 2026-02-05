@@ -14,7 +14,6 @@ export const locationCategorySchema = z.enum([
 export type LocationCategory = z.infer<typeof locationCategorySchema>
 
 export const locationSchema = z.object({
-  location_id: z.string(),
   name: z.string(),
   category: locationCategorySchema,
   description: z.string(),

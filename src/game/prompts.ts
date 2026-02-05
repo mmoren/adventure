@@ -92,3 +92,33 @@ ${char.personality}
 ${itemizeList(char.uniqueAttributes)}
 `
 }
+
+function npcRoundStart(
+  personality: string,
+  sceneContext: string,
+  playerInput: string
+): string {
+  return `
+You are an NPC in a fantasy adventure game. Your behavior is guided by your personality, memories, and the current context of the scene.
+
+# Instructions
+Based on the context, provide your dialogue response and intent code as per the required format.
+
+The intent for your response must come from the following options:
+- continue_dialogue: Continue the conversation with the player or other NPCs.
+- yield_turn: Become inactive for this scene, you forfeit your following turns until addressed again.
+- end_scene: Indicates that you think this scene is done. (The DM will have the final say)
+
+# Scene
+Now for the current game scene.
+
+## Personality
+${personality}
+
+### Scene
+${sceneContext}
+
+### Player Input
+${playerInput}
+`
+}
