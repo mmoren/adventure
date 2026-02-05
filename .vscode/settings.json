@@ -1,0 +1,7 @@
+{
+  "search.exclude": {
+    "**/*.gen.*": true,
+    "**/node_modules": true,
+    "pnpm-lock.yaml": true
+  }
+}
